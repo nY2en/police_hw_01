@@ -8,14 +8,34 @@ const refs = {
 
 const pokemons = JSON.parse(localStorage.getItem("pokemons"));
 
-if (!pokemons || pokemons.length === 0) {
-  fetchPokemons().then((pokemons) => {
-    localStorage.setItem("pokemons", JSON.stringify(pokemons));
-    refs.list.innerHTML = createListMarkup(pokemons);
+if (!pokemons) {
+  fetchPokemons().then((data) => {
+    localStorage.setItem("pokemons", JSON.stringify(data));
+
+    handleListFill(data);
+    counterUpdate(data);
+
+    return;
   });
 } else {
-  refs.list.innerHTML = createListMarkup(pokemons);
+  handleListFill(pokemons);
+  counterUpdate(pokemons);
 }
+
+refs.input.addEventListener("input", (e) => {
+  const pokemons = JSON.parse(localStorage.getItem("pokemons"));
+
+  const filteredList = pokemons.filter((el) =>
+    el.name.includes(e.target.value)
+  );
+
+  if (filteredList.length === 0) {
+    refs.list.innerHTML = "Not found";
+    return;
+  }
+
+  handleListFill(filteredList);
+});
 
 refs.list.addEventListener("click", (e) => {
   if (!e.target.classList.contains("card__btn")) {
@@ -32,13 +52,13 @@ refs.list.addEventListener("click", (e) => {
 
   localStorage.setItem("pokemons", JSON.stringify(pokemons));
 
-  refs.list.innerHTML = createListMarkup(pokemons);
-});
+  handleListFill(pokemons);
 
-refs.input.addEventListener("input", (e) => {
-  refs.list.innerHTML = createListMarkup(
-    pokemons.filter((el) => el.name.includes(e.target.value))
-  );
+  counterUpdate(pokemons);
+
+  if (pokemons.length === 0) {
+    localStorage.removeItem("pokemons");
+  }
 });
 
 async function fetchPokemons() {
@@ -58,4 +78,11 @@ function createListMarkup(data) {
       </li>`
     )
     .join("");
+}
+function handleListFill(data) {
+  refs.list.innerHTML = createListMarkup(data);
+}
+
+function counterUpdate(pokemons) {
+  refs.counter.textContent = `${pokemons.length} users`;
 }
