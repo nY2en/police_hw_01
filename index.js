@@ -22,10 +22,12 @@ refs.input.addEventListener("input", (e) => {
 
   if (filteredList.length === 0) {
     refs.list.innerHTML = "Not found";
+    counterUpdate([]);
     return;
   }
 
   handleListFill(filteredList);
+  counterUpdate(filteredList);
 });
 
 refs.list.addEventListener("click", (e) => {
@@ -43,7 +45,7 @@ refs.list.addEventListener("click", (e) => {
 
   handleListFill(filter(pokemons, refs.input.value));
 
-  counterUpdate(pokemons);
+  counterUpdate(filter(pokemons, refs.input.value));
 
   if (pokemons.length === 0) {
     localStorage.removeItem("pokemons");
