@@ -25,9 +25,7 @@ if (!pokemons) {
 refs.input.addEventListener("input", (e) => {
   const pokemons = JSON.parse(localStorage.getItem("pokemons"));
 
-  const filteredList = pokemons.filter((el) =>
-    el.name.includes(e.target.value)
-  );
+  const filteredList = filter(pokemons, e.target.value);
 
   if (filteredList.length === 0) {
     refs.list.innerHTML = "Not found";
@@ -52,7 +50,7 @@ refs.list.addEventListener("click", (e) => {
 
   localStorage.setItem("pokemons", JSON.stringify(pokemons));
 
-  handleListFill(pokemons);
+  handleListFill(filter(pokemons, refs.input.value));
 
   counterUpdate(pokemons);
 
@@ -85,4 +83,8 @@ function handleListFill(data) {
 
 function counterUpdate(pokemons) {
   refs.counter.textContent = `${pokemons.length} users`;
+}
+
+function filter(pokemons, tgt) {
+  return pokemons.filter((el) => el.name.includes(tgt));
 }
