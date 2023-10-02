@@ -1,0 +1,65 @@
+body {
+  padding: 20px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  margin-bottom: 8px;
+
+  font-size: 44px;
+  font-weight: 500;
+}
+
+.sub-title {
+  font-family: 22px;
+
+  margin-bottom: 42px;
+}
+
+.searchbar {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 42px;
+
+  font-size: 20px;
+
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+
+  outline: none;
+}
+
+.searchbar::placeholder {
+  color: #dcdcdc;
+}
+
+.list {
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.card__title {
+  width: 100px;
+}
