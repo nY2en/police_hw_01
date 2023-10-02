@@ -6,25 +6,18 @@ const refs = {
   input: document.querySelector(".searchbar"),
 };
 
-const pokemons = JSON.parse(localStorage.getItem("pokemons"));
-
-if (!pokemons) {
-  fetchPokemons().then((data) => {
+if (!JSON.parse(localStorage.getItem("pokemons"))) {
+  await fetchPokemons().then((data) => {
     localStorage.setItem("pokemons", JSON.stringify(data));
-
-    handleListFill(data);
-    counterUpdate(data);
-
-    return;
   });
-} else {
-  handleListFill(pokemons);
-  counterUpdate(pokemons);
 }
 
-refs.input.addEventListener("input", (e) => {
-  const pokemons = JSON.parse(localStorage.getItem("pokemons"));
+const pokemons = JSON.parse(localStorage.getItem("pokemons"));
 
+handleListFill(pokemons);
+counterUpdate(pokemons);
+
+refs.input.addEventListener("input", (e) => {
   const filteredList = filter(pokemons, e.target.value);
 
   if (filteredList.length === 0) {
@@ -39,8 +32,6 @@ refs.list.addEventListener("click", (e) => {
   if (!e.target.classList.contains("card__btn")) {
     return;
   }
-
-  const pokemons = JSON.parse(localStorage.getItem("pokemons"));
 
   const currentBtn = e.target.getAttribute("id");
 
@@ -85,6 +76,6 @@ function counterUpdate(pokemons) {
   refs.counter.textContent = `${pokemons.length} users`;
 }
 
-function filter(pokemons, tgt) {
-  return pokemons.filter((el) => el.name.includes(tgt));
+function filter(pokemons, value) {
+  return pokemons.filter((el) => el.name.includes(value));
 }
