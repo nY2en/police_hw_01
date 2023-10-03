@@ -1,4 +1,5 @@
-const BASE_URL = "https://pokeapi.co/api/v2";
+import fetchPokemons from "./utils/fetchPokemons.js";
+import createListMarkup from "./utils/createListMarkup.js";
 
 const refs = {
   list: document.querySelector(".list"),
@@ -18,7 +19,7 @@ handleListFill(pokemons);
 counterUpdate(pokemons);
 
 refs.input.addEventListener("input", (e) => {
-  const filteredList = filter(pokemons, e.target.value);
+  const filteredList = filter(pokemons, e.target.value.trim());
 
   if (filteredList.length === 0) {
     refs.list.innerHTML = "Not found";
@@ -27,49 +28,34 @@ refs.input.addEventListener("input", (e) => {
   }
 
   handleListFill(filteredList);
+
   counterUpdate(filteredList);
 });
 
 refs.list.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("card__btn")) {
-    return;
+  if (e.target.classList.contains("card__btn")) {
+    const currentBtn = e.target.getAttribute("id");
+
+    const index = pokemons.findIndex((el) => el.url === currentBtn);
+
+    pokemons.splice(index, 1);
+
+    localStorage.setItem("pokemons", JSON.stringify(pokemons));
+
+    handleListFill(filter(pokemons, refs.input.value));
+
+    counterUpdate(filter(pokemons, refs.input.value));
   }
 
-  const currentBtn = e.target.getAttribute("id");
-
-  const index = pokemons.findIndex((el) => el.url === currentBtn);
-
-  pokemons.splice(index, 1);
-
-  localStorage.setItem("pokemons", JSON.stringify(pokemons));
-
-  handleListFill(filter(pokemons, refs.input.value));
-
-  counterUpdate(filter(pokemons, refs.input.value));
+  if (e.target.classList.contains("card__title")) {
+    refs.input.value = e.target.textContent;
+  }
 
   if (pokemons.length === 0) {
     localStorage.removeItem("pokemons");
   }
 });
 
-async function fetchPokemons() {
-  const response = await fetch(`${BASE_URL}/pokemon`);
-  const data = await response.json();
-
-  return data.results;
-}
-
-function createListMarkup(data) {
-  return data
-    .map(
-      (el) => `<li class="card">
-        <h2 class="card__title">${el.name}</h2>
-        <p class="card__url">${el.url}</p>
-        <button id="${el.url}" class="card__btn">Delete</button>
-      </li>`
-    )
-    .join("");
-}
 function handleListFill(data) {
   refs.list.innerHTML = createListMarkup(data);
 }
@@ -79,5 +65,5 @@ function counterUpdate(pokemons) {
 }
 
 function filter(pokemons, value) {
-  return pokemons.filter((el) => el.name.includes(value));
+  return pokemons.filter((el) => el.name.includes(value.toLowerCase()));
 }

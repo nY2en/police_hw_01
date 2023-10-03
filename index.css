@@ -39,6 +39,12 @@ p {
   border-radius: 12px;
 
   outline: none;
+
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus-within {
+    border-color: #778899;
+  }
 }
 
 .searchbar::placeholder {
@@ -51,7 +57,6 @@ p {
 
 .card {
   display: flex;
-
   justify-content: space-between;
   align-items: center;
 
@@ -62,4 +67,22 @@ p {
 
 .card__title {
   width: 100px;
+}
+
+.card__btn {
+  padding: 10px;
+
+  border-radius: 5px;
+  border: none;
+
+  cursor: pointer;
+
+  transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    background-color: #778899;
+    color: #fff;
+  }
 }
