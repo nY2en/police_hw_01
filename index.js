@@ -7,7 +7,7 @@ const refs = {
   input: document.querySelector(".searchbar"),
 };
 
-if (!JSON.parse(localStorage.getItem("pokemons"))) {
+if (!localStorage.getItem("pokemons")) {
   await fetchPokemons().then((data) => {
     localStorage.setItem("pokemons", JSON.stringify(data));
   });
