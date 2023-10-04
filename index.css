@@ -55,21 +55,24 @@ p {
   margin: 0 auto;
 }
 
-.card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+table {
+  width: 100%;
+}
 
+tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
 
   border-bottom: 1px solid #dcdcdc;
 }
 
-.card__title {
-  width: 100px;
+.table__title {
+  width: 50px;
 }
 
-.card__btn {
+.table__btn {
   padding: 10px;
 
   border-radius: 5px;

@@ -1,11 +1,11 @@
 function createListMarkup(data) {
   return data
     .map(
-      (el) => `<li class="card">
-        <h2 class="card__title">${el.name}</h2>
-        <p class="card__url">${el.url}</p>
-        <button id="${el.url}" class="card__btn">Delete</button>
-      </li>`
+      (el) => `<tr>
+      <td class="table__title">${el.name}</td>
+      <td>${el.url}</td>
+      <td><button id="${el.url}" class="table__btn">Delete</button></td>
+    </tr>`
     )
     .join("");
 }

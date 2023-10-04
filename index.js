@@ -33,7 +33,7 @@ refs.input.addEventListener("input", (e) => {
 });
 
 refs.list.addEventListener("click", (e) => {
-  if (e.target.classList.contains("card__btn")) {
+  if (e.target.classList.contains("table__btn")) {
     const currentBtn = e.target.getAttribute("id");
 
     const index = pokemons.findIndex((el) => el.url === currentBtn);
@@ -47,7 +47,7 @@ refs.list.addEventListener("click", (e) => {
     counterUpdate(filter(pokemons, refs.input.value));
   }
 
-  if (e.target.classList.contains("card__title")) {
+  if (e.target.classList.contains("table__title")) {
     refs.input.value = e.target.textContent;
   }
 
