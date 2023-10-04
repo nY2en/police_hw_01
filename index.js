@@ -42,8 +42,6 @@ refs.list.addEventListener("click", (e) => {
 
     localStorage.setItem("pokemons", JSON.stringify(pokemons));
 
-    refs.input.value = "";
-
     handleListFill(filter(pokemons, refs.input.value));
 
     counterUpdate(filter(pokemons, refs.input.value));
