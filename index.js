@@ -49,6 +49,7 @@ refs.list.addEventListener("click", (e) => {
 
   if (e.target.classList.contains("table__title")) {
     refs.input.value = e.target.textContent;
+    handleListFill(filter(pokemons, refs.input.value));
   }
 
   if (pokemons.length === 0) {
