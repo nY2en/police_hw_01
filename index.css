@@ -70,6 +70,8 @@ tr {
 
 .table__title {
   width: 50px;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .table__btn {
